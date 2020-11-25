@@ -1,0 +1,155 @@
+{% extends "layout.html" %} {% block title %} Log In {% endblock %} {% block
+main %}
+<table class="table" id="tblCustomers">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Location</th>
+      <th scope="col">Date</th>
+      <th scope="col">DataSheet</th>
+      <th scope="col">ModifiedBy</th>
+      <th scope="col">history</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for i in data%}
+
+    <tr class="d">
+      <th scope="row">{{i.nameOfDevice}}</th>
+      <td>{{i.location}}</td>
+      <td>{{i.date}}</td>
+      <td><a href="{{i.sheet}}"> DataSheet</a></td>
+      <td>{{i.username}}</td>
+      <td><form action="/history/{{i.id}}">
+            <input type="submit" value="History">
+      </form></td>
+
+      <td>
+        <form method="post" action="/edit/{{i.id}}" autocomplete="off">
+          <div class="modal fade" id="{{'x'}}{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-notify modal-warning" role="document">
+              <!--Content-->
+              <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header text-center">
+                  <h4 class="modal-title white-text w-100 font-weight-bold py-2">
+                    Please Enter
+                  </h4>
+
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                  </button>
+                </div>
+
+                <!--Body-->
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label data-error="wrong" data-success="right" for="ay">Admin Username</label>
+                    <input id="au" type="text" name="adminusername" class="form-control" placeholder="Username" />
+                  </div>
+                  <div class="form-group">
+                    <label data-error="wrong" data-success="right" for="ap">Admin Password</label>
+                    <input id="ap" type="password" name="adminpasword" class="form-control" placeholder="Password" />
+                  </div>
+                </div>
+
+                <!--Footer-->
+                <div class="modal-footer justify-content-center">
+                  <button class="btn btn-info">Log In</button>
+                </div>
+              </div>
+              <!--/.Content-->
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#{{'x'}}{{i.id}}">
+              Edit
+            </button>
+          </div>
+        </form>
+      </td>
+
+      <td>
+        <form method="POST" action="/delete/{{i.id}}" autocomplete="off">
+          <div class="modal fade" id="{{'d'}}{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-notify modal-warning" role="document">
+              <!--Content-->
+              <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header text-center">
+                  <h4 class="modal-title white-text w-100 font-weight-bold py-2">
+                    Please Enter
+                  </h4>
+
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                  </button>
+                </div>
+
+                <!--Body-->
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label data-error="wrong" data-success="right" for="ay">Admin Username</label>
+                    <input id="au" type="text" name="adminusername" class="form-control" placeholder="Username" />
+                  </div>
+                  <div class="form-group">
+                    <label data-error="wrong" data-success="right" for="ap">Admin Password</label>
+                    <input id="ap" type="password" name="adminpasword" class="form-control" placeholder="Password" />
+                  </div>
+                </div>
+
+                <!--Footer-->
+                <div class="modal-footer justify-content-center">
+                  <button class="btn btn-info">Log In</button>
+                </div>
+              </div>
+              <!--/.Content-->
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#{{'d'}}{{i.id}}">
+              Delete
+            </button>
+          </div>
+        </form>
+      </td>
+    </tr>
+    
+    {%endfor%}
+  </tbody>
+</table>
+
+<script>
+  let tagArr = document.getElementsByTagName("input");
+  for (let i = 0; i < tagArr.length; i++) {
+    tagArr[i].autocomplete = "off";
+  }
+</script>
+<input type="button" id="btnExport" value="Export" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script type="text/javascript">
+        $("body").on("click", "#btnExport", function () {
+            html2canvas($('#tblCustomers')[0], {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("cutomer-details.pdf");
+                }
+            });
+        });
+    </script>
+
+{% endblock %}

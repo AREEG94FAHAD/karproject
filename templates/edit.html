@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form action="/editadmin" method="POST">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" pattern=".{8,}" title="Eight or more characters" required>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" name="password"  id="txtNewPassword" placeholder=" New password" pattern=".{8,}" title="Eight or more characters" type="password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="confirmation" id="txtConfirmPassword" placeholder=" Confirm new password"  type="password" required>
+        </div>
+
+
+        <button class="btn btn-primary" type="submit" onclick="checkPasswordMatch();">Register</button>
+    </form>
+
+    <script>
+        function checkPasswordMatch() {
+    var password = $("#txtNewPassword").val();
+    var confirmPassword = $("#txtConfirmPassword").val();
+
+    if (password != confirmPassword)
+        alert("passord not match");
+}
+
+$(document).ready(function () {
+   $("#txtNewPassword, #txtConfirmPassword").onclick(checkPasswordMatch);
+});
+ </script>
+{% endblock %}

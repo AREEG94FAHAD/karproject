@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+
+<h2  align="left" > Edit ...</h2>
+<form action="/update" method="post">
+<div class="row">
+    <div class="col-3" align="left">
+        <!-- <div class="form-group">
+            <label  data-error="wrong" data-success="right" for="nn">Name</label>
+        </div> -->
+                <div class="form-group">
+            <label  data-error="wrong" data-success="right" for="ll">Location</label>
+        </div>
+                <!-- <div class="form-group">
+            <label  data-error="wrong" data-success="right" for="dd">Date</label>
+        </div> -->
+        <!-- <div class="form-group">
+            <label  data-error="wrong" data-success="right" for="ds">DataSheet</label>
+        </div> -->
+
+    </div>
+
+    <div class="col" align="left">
+ <!-- <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" id="nn"name="nameOfDevice" value="{{data.nameOfDevice}}" type="text" required>
+        </div> -->
+                <div class="form-group">
+
+            <input autocomplete="off" autofocus class="form-control" id="ll"name="location" value="{{data.location}}"  type="text" required> 
+        </div>
+                <!-- <div class="form-group">
+
+            <input autocomplete="off" id="dd" autofocus class="form-control" name="date" value="{{data.date}}" type="text" required>
+        </div> -->
+                        <!-- <div class="form-group">
+
+            <input autocomplete="off" id="ds" autofocus class="form-control" name="datesheet" value="{{data.sheet}}" type="text" required>
+        </div> -->
+        <input type="text" name="id" value="{{data.id}}" hidden />
+        <div><button class="btn btn-outline-primary" type="submit">Submit Your edit</button></div>
+    </div>
+
+</div>
+
+
+
+
+</form>
+
+
+
+{% endblock %}

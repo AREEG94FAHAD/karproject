@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Log In
+{% endblock %}
+
+{% block main %}
+
+<h2 align="left"> Add new ...</h2>
+<form action="/addnew" method="post">
+    <div class="row">
+        <div class="col-3 p-1" align="left">
+            <div class="form-group">
+                <label data-error="wrong" data-success="right" for="nnn">Name</label>
+            </div>
+            <div class="form-group pb-2">
+                <label data-error="wrong" data-success="right" for="lnl">Location</label>
+            </div>
+
+            <div class="form-group">
+                <label data-error="wrong" data-success="right" for="dns">DataSheet</label>
+            </div>
+
+        </div>
+        <div class="col" align="left">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" id="nnn" name="nameOfDevice" type="text" required>
+            </div>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" id="lnl" name="location" type="text" required>
+            </div>
+            
+            <div class="form-group">
+
+                <input autocomplete="off" id="dns" autofocus class="form-control" name="datasheet" type="text" required>
+            </div>
+            <div><button class="btn btn-outline-primary" type="submit">Submit</button></div>
+        </div>
+
+    </div>
+
+
+
+
+</form>
+
+
+
+{% endblock %}
