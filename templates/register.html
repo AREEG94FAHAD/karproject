@@ -5,16 +5,12 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/register" method="POST">
-        <!-- <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="fullname" placeholder="Full Name" type="text"  pattern=".{8,}" title="Eight or more characters" required>
-        </div> -->
+    <!-- <form action="/register" method="POST">
+  
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" pattern=".{8,}" title="Eight or more characters" required>
         </div>
-        <!-- <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="email" placeholder="Email" type="email" pattern=".{8,}" title="Eight or more characters" required>
-        </div> -->
+ 
         <div class="form-group">
             <input class="form-control" name="password"  id="txtNewPassword" placeholder="Password" pattern=".{8,}" title="Eight or more characters" type="password">
         </div>
@@ -26,7 +22,88 @@
             <input class="form-control" name="companycode" id="companycode" placeholder="Company code"  type="text" required>
         </div>
         <button class="btn btn-primary" type="submit" onclick="checkPasswordMatch();">Register</button>
-    </form>
+    </form> -->
+
+
+    <div class="login-dark">
+        <form action="/register" method="post" autocomplete="off">
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration"><span class="iconify" data-icon="ant-design:user-add-outlined" data-inline="false"></span></div>
+            <div class="form-group"><input class="form-control" type="text" name="username" placeholder="Username"></div>
+            <div class="form-group"><input id="txtNewPassword" class="form-control" type="password" name="password" placeholder="Password"></div>
+            
+            <div class="form-group"><input id="txtConfirmPassword"class="form-control" type="password" name="password" placeholder="Confirm Password"></div>
+            <div class="form-group"><input class="form-control" type="text" name="companycode" placeholder="Code"></div>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Register</button></div><a href="/login" class="forgot">Login</a></form>
+    </div>
+    <style>
+        form {
+            max-width:320px;
+            width:90%;
+            background-color:#ffffff;
+            padding:40px;
+            border-radius:4px;
+            transform:translate(-50%, -50%);
+            position:absolute;
+            top:50%;
+            left:50%;
+            color:rgb(72, 72, 72);
+            box-shadow:3px 3px 4px rgba(0,0,0,0.2);
+          }
+          
+           .illustration {
+            text-align:center;
+            padding:15px 0 20px;
+            font-size:70px;
+            color:#595c5f;
+          }
+          
+           form .form-control {
+            background:none;
+            border:none;
+            border-bottom:1px solid #434a52;
+            border-radius:0;
+            box-shadow:none;
+            outline:none;
+            color:inherit;
+          }
+          
+           form .btn-primary {
+            background:#214a80;
+            border:none;
+            border-radius:4px;
+            padding:11px;
+            box-shadow:none;
+            margin-top:26px;
+            text-shadow:none;
+            outline:none;
+          }
+          
+           form .btn-primary:hover,  form .btn-primary:active {
+            background:#e86f0c;
+            outline:none;
+          }
+          
+          form .forgot {
+            display:block;
+            text-align:center;
+            font-size:12px;
+            color:#6f7a85;
+            opacity:0.9;
+            text-decoration:none;
+          }
+          
+          form .forgot:hover, form .forgot:active {
+            opacity:1;
+            text-decoration:none;
+          }
+          
+           form .btn-primary:active {
+            transform:translateY(1px);
+          }
+    </style>
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+
 
    <script>
         function checkPasswordMatch() {

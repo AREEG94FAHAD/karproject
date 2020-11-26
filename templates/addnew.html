@@ -6,18 +6,23 @@ Log In
 
 {% block main %}
 
-<h2 align="left"> Add new ...</h2>
+
+
+<h2 align="left" class="colorlable" style="font-size: x-large;"> Add new ...</h2>
 <form action="/addnew" method="post">
     <div class="row">
         <div class="col-3 p-1" align="left">
-            <div class="form-group">
+            <div class="form-group colorlable">
                 <label data-error="wrong" data-success="right" for="nnn">Name</label>
             </div>
-            <div class="form-group pb-2">
+            <div class="form-group pb-2 colorlable">
                 <label data-error="wrong" data-success="right" for="lnl">Location</label>
             </div>
+            <div class="form-group colorlable">
+                <label data-error="wrong" data-success="right" for="dns">Image</label>
+            </div>
 
-            <div class="form-group">
+            <div class="form-group colorlable">
                 <label data-error="wrong" data-success="right" for="dns">DataSheet</label>
             </div>
 
@@ -29,12 +34,16 @@ Log In
             <div class="form-group">
                 <input autocomplete="off" autofocus class="form-control" id="lnl" name="location" type="text" required>
             </div>
+            <div class="form-group">
+
+                <input autocomplete="off" id="dns" autofocus class="form-control" name="image" type="text" required>
+            </div>
             
             <div class="form-group">
 
                 <input autocomplete="off" id="dns" autofocus class="form-control" name="datasheet" type="text" required>
             </div>
-            <div><button class="btn btn-outline-primary" type="submit">Submit</button></div>
+            <div><button class="btn btn-primary" type="submit">Submit</button></div>
         </div>
 
     </div>

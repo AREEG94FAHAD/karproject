@@ -1,7 +1,8 @@
 import os
 import datetime
 from sqlalchemy import Column, String, Integer, ForeignKey
-from sqlalchemy import asc
+from sqlalchemy import asc,desc
+
 from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for, abort
 from flask_session import Session
 from tempfile import mkdtemp
@@ -69,6 +70,7 @@ class Items(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     sheet = db.Column(db.String)
+    image = db.Column(db.String)
     location = db.Column(db.String(220))
     nameOfDevice = db.Column(db.String(220))
     username = db.Column(db.String(120))
@@ -97,7 +99,7 @@ def index():
     if not session.get('logged_in'):
         return render_template('login.html')
 
-    items = db.session.query(Items).order_by(asc(Items.date))
+    items = db.session.query(Items).order_by(desc(Items.date))
     
     return render_template("data.html", data=items)
 
@@ -224,7 +226,7 @@ def edititem():
     
 
     id = request.form.get("id")
-    nameOfDevice = db.session.query(Items.nameOfDevice).filter((Items.nameOfDevice == id)).one_or_none()
+    name = db.session.query(Items.nameOfDevice).filter((Items.id == id)).one_or_none()
     # date = request.form.get("date")
     location = request.form.get("location")
     # nameOfDevice = request.form.get("nameOfDevice")
@@ -233,15 +235,15 @@ def edititem():
     # sheet = request.form.get("sheet")
     now = datetime.datetime.now()
     date1=now.strftime("%Y-%m-%d %H:%M:%S")
+    print("  ",name,"   ")
 
     histor =History(
  
-        nameOfDevice=nameOfDevice,
+        nameOfDevice=name[0][0],
         location=location,
         date=date1,
         username=session["username"],
         device_id=id
-        
         )
 
     db.session.add(histor)
@@ -278,28 +280,23 @@ def delete_item(id):
         return abort(422," Wrong Admin name or Admin password")
 
     else:
-    
 
-            
         history_items =db.session.query(History).filter(History.device_id == id).all()
         if history_items:
             for item in history_items:
                 db.session.delete(item)
                 db.session.commit()
             
-            item = db.session.query(Items).filter(Items.id == id).one_or_none()
+        item = db.session.query(Items).filter(Items.id == id).one_or_none()
 
-            if item:
-                db.session.delete(item)
-                db.session.commit()
-            flash('deleted successfuly')
+        if item:
+            db.session.delete(item)
+            db.session.commit()
         
-        
+   
     
     return redirect("/")
-        
-        
-
+    
 @app.route("/checknew", methods=["post"])
 @login_required
 def newitem():
@@ -352,6 +349,7 @@ def addnew():
     nameOfDevice = request.form.get("nameOfDevice")
     location = request.form.get("location")
     datasheet = request.form.get("datasheet")
+    image = request.form.get("image")
     now = datetime.datetime.now()
     da = now.strftime("%Y-%m-%d %H:%M:%S")
 
@@ -360,9 +358,13 @@ def addnew():
     location=location,
     sheet=datasheet,
     date=da,
+    image=image,
     username=session["username"])
     db.session.add(addnew)
     db.session.commit()
+
+    item_id = db.session.query(Items.id).order_by(Items.id.desc()).limit(1)
+    # print(";;;;;;;;;;;;",item_id[0][0])
 
     histor =History(
  
@@ -370,7 +372,7 @@ def addnew():
         location=location,
         date=da,
         username=session["username"],
-        device_id =1
+        device_id =item_id[0][0]
     )
 
     db.session.add(histor)

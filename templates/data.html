@@ -1,155 +1,133 @@
 {% extends "layout.html" %} {% block title %} Log In {% endblock %} {% block
 main %}
-<table class="table" id="tblCustomers">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Location</th>
-      <th scope="col">Date</th>
-      <th scope="col">DataSheet</th>
-      <th scope="col">ModifiedBy</th>
-      <th scope="col">history</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
+<!-- <table class="table" id="tblCustomers"> -->
+<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+<div class="container">
+  <div class="row">
     {%for i in data%}
 
-    <tr class="d">
-      <th scope="row">{{i.nameOfDevice}}</th>
-      <td>{{i.location}}</td>
-      <td>{{i.date}}</td>
-      <td><a href="{{i.sheet}}"> DataSheet</a></td>
-      <td>{{i.username}}</td>
-      <td><form action="/history/{{i.id}}">
-            <input type="submit" value="History">
-      </form></td>
+    <div class="col-lg-4 col-md-12 col-sm-12">
+      <div style="background-color: rgb(249, 249, 249)" class="card m-2" style="width: 300px">
+        <img class="card-img-top" src="{{i.image}}" alt="Card image" width="240px" height="200px">
+        <div class="card-body">
+          <h4 class="card-title">{{i.nameOfDevice}}</h4>
+          <h5 class="card-title"  style="color: rgb(102, 105, 123)"><i class="fas fa-hand-rock"></i>: {{i.username}}</h5>
+          <h6 class="card-title p-2" style="color: rgb(157, 158, 164)">Taken in: {{i.date}}</h6>
+          <h6 class="card-title p-2" style="color: rgb(157, 158, 164)"><i class="fas fa-map-marker-alt"></i>: {{i.location}}</h6>
+          <div class="row">
+            <div class="col-6 text-left">
+              <a href="/history/{{i.id}}" style="color: rgb(102, 105, 123)" ><i class="fas fa-history"></i></a>
+              <a href="{{i.sheet}}" style="color: rgb(102, 105, 123);font-size: x-large; padding:13px"><i class="far fa-file-alt"></i></a>
+            </div>
+            <div class="col-6">
 
-      <td>
-        <form method="post" action="/edit/{{i.id}}" autocomplete="off">
-          <div class="modal fade" id="{{'x'}}{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-notify modal-warning" role="document">
-              <!--Content-->
-              <div class="modal-content">
-                <!--Header-->
-                <div class="modal-header text-center">
-                  <h4 class="modal-title white-text w-100 font-weight-bold py-2">
-                    Please Enter
-                  </h4>
+<!-- ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, -->
+                  <table>
+ <tr>
+  <td>
+    <form method="post" action="/edit/{{i.id}}" autocomplete="off">
+      <div class="modal fade" id="{{'x'}}{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-notify modal-warning" role="document">
+          <!--Content-->
+          <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header text-center">
+              <h4 class="modal-title white-text w-100 font-weight-bold py-2">
+                Please Enter
+              </h4>
 
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="white-text">&times;</span>
-                  </button>
-                </div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="white-text">&times;</span>
+              </button>
+            </div>
 
-                <!--Body-->
-                <div class="modal-body">
-                  <div class="form-group">
-                    <label data-error="wrong" data-success="right" for="ay">Admin Username</label>
-                    <input id="au" type="text" name="adminusername" class="form-control" placeholder="Username" />
-                  </div>
-                  <div class="form-group">
-                    <label data-error="wrong" data-success="right" for="ap">Admin Password</label>
-                    <input id="ap" type="password" name="adminpasword" class="form-control" placeholder="Password" />
-                  </div>
-                </div>
-
-                <!--Footer-->
-                <div class="modal-footer justify-content-center">
-                  <button class="btn btn-info">Log In</button>
-                </div>
+            <!--Body-->
+            <div class="modal-body">
+              <div class="form-group">
+                <label data-error="wrong" data-success="right" for="ay">Admin Username</label>
+                <input id="au" type="text" name="adminusername" class="form-control" placeholder="Username" />
               </div>
-              <!--/.Content-->
+              <div class="form-group">
+                <label data-error="wrong" data-success="right" for="ap">Admin Password</label>
+                <input id="ap" type="password" name="adminpasword" class="form-control" placeholder="Password" />
+              </div>
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+              <button class="btn btn-info">Log In</button>
             </div>
           </div>
+          <!--/.Content-->
+        </div>
+      </div>
 
-          <div class="text-center">
-            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#{{'x'}}{{i.id}}">
-              Edit
-            </button>
-          </div>
-        </form>
-      </td>
+      <div class="text-center">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#{{'x'}}{{i.id}}">
+          Edit
+        </button>
+      </div>
+    </form>
+  </td>
 
-      <td>
-        <form method="POST" action="/delete/{{i.id}}" autocomplete="off">
-          <div class="modal fade" id="{{'d'}}{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-notify modal-warning" role="document">
-              <!--Content-->
-              <div class="modal-content">
-                <!--Header-->
-                <div class="modal-header text-center">
-                  <h4 class="modal-title white-text w-100 font-weight-bold py-2">
-                    Please Enter
-                  </h4>
+  <td>
+    <form method="POST" action="/delete/{{i.id}}" autocomplete="off">
+      <div class="modal fade" id="{{'d'}}{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-notify modal-warning" role="document">
+          <!--Content-->
+          <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header text-center">
+              <h4 class="modal-title white-text w-100 font-weight-bold py-2">
+                Please Enter
+              </h4>
 
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="white-text">&times;</span>
-                  </button>
-                </div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="white-text">&times;</span>
+              </button>
+            </div>
 
-                <!--Body-->
-                <div class="modal-body">
-                  <div class="form-group">
-                    <label data-error="wrong" data-success="right" for="ay">Admin Username</label>
-                    <input id="au" type="text" name="adminusername" class="form-control" placeholder="Username" />
-                  </div>
-                  <div class="form-group">
-                    <label data-error="wrong" data-success="right" for="ap">Admin Password</label>
-                    <input id="ap" type="password" name="adminpasword" class="form-control" placeholder="Password" />
-                  </div>
-                </div>
-
-                <!--Footer-->
-                <div class="modal-footer justify-content-center">
-                  <button class="btn btn-info">Log In</button>
-                </div>
+            <!--Body-->
+            <div class="modal-body">
+              <div class="form-group">
+                <label data-error="wrong" data-success="right" for="ay">Admin Username</label>
+                <input id="au" type="text" name="adminusername" class="form-control" placeholder="Username" />
               </div>
-              <!--/.Content-->
+              <div class="form-group">
+                <label data-error="wrong" data-success="right" for="ap">Admin Password</label>
+                <input id="ap" type="password" name="adminpasword" class="form-control" placeholder="Password" />
+              </div>
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+              <button class="btn btn-info">Log In</button>
             </div>
           </div>
+          <!--/.Content-->
+        </div>
+      </div>
 
-          <div class="text-center">
-            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#{{'d'}}{{i.id}}">
-              Delete
-            </button>
+      <div class="text-center">
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#{{'d'}}{{i.id}}">
+          Delete
+        </button>
+      </div>
+    </form>
+ </tr>
+                
+              </table>            
+<!-- ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, -->
+             
+            </div>
           </div>
-        </form>
-      </td>
-    </tr>
-    
+        </div>
+      </div>
+    </div>
     {%endfor%}
-  </tbody>
-</table>
-
-<script>
-  let tagArr = document.getElementsByTagName("input");
-  for (let i = 0; i < tagArr.length; i++) {
-    tagArr[i].autocomplete = "off";
-  }
-</script>
-<input type="button" id="btnExport" value="Export" />
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    <script type="text/javascript">
-        $("body").on("click", "#btnExport", function () {
-            html2canvas($('#tblCustomers')[0], {
-                onrendered: function (canvas) {
-                    var data = canvas.toDataURL();
-                    var docDefinition = {
-                        content: [{
-                            image: data,
-                            width: 500
-                        }]
-                    };
-                    pdfMake.createPdf(docDefinition).download("cutomer-details.pdf");
-                }
-            });
-        });
-    </script>
+  </div>
+</div>
 
 {% endblock %}
