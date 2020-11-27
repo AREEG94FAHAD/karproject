@@ -23,8 +23,8 @@ app.secret_key= "sahhskskks"
 
 
 # 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres:areeg@localhost:5432/gheed'
-# app.config['SQLALCHEMY_DATABASE_URI'] =os.environ['DATABASE_URL']
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres:areeg@localhost:5432/gheed'
+app.config['SQLALCHEMY_DATABASE_URI'] =os.environ['DATABASE_URL']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
