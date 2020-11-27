@@ -3,16 +3,13 @@ nav .navbar-brand
     /* size for brand */
     font-size: xx-large;
 }
-html{
- 
-   
-}
+
 body  {
     background-image: url('/static/aa.jpg');
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    /* background-size: cover; */
 
 
 }
@@ -113,6 +110,10 @@ padding: 1px;}
     color: aliceblue;
     text-shadow: 0 0 10px #ea07ea, 0 0 5px #6fdbdb;
     font-size: large;
+}
+
+.container{
+align-items: center;
 }
 
   
